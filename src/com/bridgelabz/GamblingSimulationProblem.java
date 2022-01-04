@@ -24,26 +24,16 @@ public class GamblingSimulationProblem {
 
     //Method to Play The Game and Make the Bet
     private static void playGame() {
-        int gameStatus = randStatus.nextInt(2)+1;
-        if(gameStatus == BET_WIN) {
-            winStack += BET;
-            System.out.println("Win the GAME !!! WIN STACK : "+ winStack);
-        } else {
-            looseStack += BET;
-            System.out.println("Loose the Game. LOOSE STACK :"+ looseStack);
-        }
-    }
-
-    public static void main(String[] args) {
-        //Starting Message for User
-        System.out.println("Welcome to Gambling Simulation Problem developed by Tahir Mansuri.");
-
-        //Shows the Initial Status of Gambler
-        showGamblerStatus();
-
-        //Simulating the Game until Winning or Loosing Stack reach
+        //Simulating the Game Until Win or Loose nit Reach 50% of Day Stack
         while(true) {
-            playGame();
+            int gameStatus = randStatus.nextInt(2) + 1;
+            if (gameStatus == BET_WIN) {
+                winStack += BET;
+                System.out.println("Win the GAME !!! WIN STACK : " + winStack);
+            } else {
+                looseStack += BET;
+                System.out.println("Loose the Game. LOOSE STACK :" + looseStack);
+            }
             //Checking for the Winning Stack is 50% of PER DAY STACK
             if(winStack == PER_DAY_STACK / 2) {
                 System.out.println("Win Stack is 50% of PER DAY STACK. So, Gambler Resigning for the DAY.");
@@ -55,5 +45,16 @@ public class GamblingSimulationProblem {
                 break;
             }
         }
+    }
+
+    public static void main(String[] args) {
+        //Starting Message for User
+        System.out.println("Welcome to Gambling Simulation Problem developed by Tahir Mansuri.");
+
+        //Shows the Initial Status of Gambler
+        showGamblerStatus();
+
+        //Starting the Game Play for a day
+        playGame();
     }
 }

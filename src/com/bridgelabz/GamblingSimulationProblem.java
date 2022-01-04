@@ -8,7 +8,6 @@ public class GamblingSimulationProblem {
     private static final int PER_DAY_STACK = 100;
     private static final int BET = 1;
     private static final int BET_WIN = 1;
-    private static final int BET_LOOSE = 2;
 
     //Winning and Loosing Amount
     private static int winStack = 0;
@@ -42,9 +41,19 @@ public class GamblingSimulationProblem {
         //Shows the Initial Status of Gambler
         showGamblerStatus();
 
-        //Simulating the Game for 10 Times
-        for(int i = 1; i <= 10; i++) {
+        //Simulating the Game until Winning or Loosing Stack reach
+        while(true) {
             playGame();
+            //Checking for the Winning Stack is 50% of PER DAY STACK
+            if(winStack == PER_DAY_STACK / 2) {
+                System.out.println("Win Stack is 50% of PER DAY STACK. So, Gambler Resigning for the DAY.");
+                break;
+            }
+            //Checking for the Winning Stack is 50% of PER DAY STACK
+            if(looseStack == PER_DAY_STACK / 2) {
+                System.out.println("Loose Stack is 50% of PER DAY STACK. So, Gambler is Resigning for the DAY");
+                break;
+            }
         }
     }
 }

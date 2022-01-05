@@ -12,6 +12,7 @@ public class GamblingSimulationProblem {
     //Array Variables for Win or Loose Count
     private static int[] winCountArr = new int[20];
     private static int[] looseCountArr = new int[20];
+    private static String[] dayStatus = new String[20];
 
     //Random Class Object for Playing Status
     private static Random randStatus = new Random();
@@ -36,19 +37,23 @@ public class GamblingSimulationProblem {
             if (gameStatus == BET_WIN) {
                 winCount++;
                 winStack += BET;
-                System.out.println("Win the GAME !!! WIN STACK : " + winStack);
+                //System.out.println("Win the GAME !!! WIN STACK : " + winStack);
             } else {
                 looseCount++;
                 looseStack += BET;
-                System.out.println("Loose the Game. LOOSE STACK :" + looseStack);
+                //System.out.println("Loose the Game. LOOSE STACK :" + looseStack);
             }
             //Checking for the Winning Stack is 50% of PER DAY STACK
             if(winStack == PER_DAY_STACK / 2) {
+                //Adding Won Status for the Day
+                dayStatus[i] = "Won";
                 System.out.println("Win Stack is 50% of PER DAY STACK. So, Gambler Resigning for the DAY.");
                 break;
             }
             //Checking for the Winning Stack is 50% of PER DAY STACK
             if(looseStack == PER_DAY_STACK / 2) {
+                //Adding Lost Status for the Day
+                dayStatus[i] = "Lost";
                 System.out.println("Loose Stack is 50% of PER DAY STACK. So, Gambler is Resigning for the DAY");
                 break;
             }
@@ -59,14 +64,16 @@ public class GamblingSimulationProblem {
         looseCountArr[i] = looseCount;
     }
 
-
     //Method to Print the Win and Loose Count for 20 Days
     private static void showWinLooseCount() {
         for(int i= 0; i < 20; i++) {
+            //Displaying the Day wise Win and Loose Status
+            System.out.println("Gambler has "+ dayStatus[i] +" Games on Day "+ (i+1));
             System.out.println("Day "+ (i+1) +" Total Win Count :"+ winCountArr[i]);
             System.out.println("Day "+ (i+1) +" Total Loose Count :"+ looseCountArr[i]);
         }
     }
+
     public static void main(String[] args) {
         //Starting Message for User
         System.out.println("Welcome to Gambling Simulation Problem developed by Tahir Mansuri.");
@@ -75,10 +82,10 @@ public class GamblingSimulationProblem {
         showGamblerStatus();
 
         //Starting the Game Play for a day
-        for(int i = 0; i < 20; i++) {
-            System.out.println("Day " + (i+1) + " Play Start.");
+        for (int i = 0; i < 20; i++) {
+            System.out.println("Day " + (i + 1) + " Play Start.");
             playGame(i);
-            System.out.println("Day " + (i+1) + " Play End.");
+            System.out.println("Day " + (i + 1) + " Play End.");
         }
 
         //Methode for Showing 20Days Win Loose Counter

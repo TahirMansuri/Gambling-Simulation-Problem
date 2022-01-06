@@ -1,6 +1,7 @@
 package com.bridgelabz;
 
 import java.util.Random;
+import java.util.Scanner;
 
 public class GamblingSimulationProblem {
 
@@ -14,8 +15,10 @@ public class GamblingSimulationProblem {
     private static int[] looseCountArr = new int[20];
     private static int[] luckyDays = new int[20];
     private static int[] unluckyDays = new int[20];
+    private static String[] dayStatus = new String[20];
     private static int luckyDayCount = 0;
     private static int unluckyDayCount = 0;
+    private static String playChoice;
 
     //Random Class Object for Playing Status
     private static Random randStatus = new Random();
@@ -51,6 +54,7 @@ public class GamblingSimulationProblem {
                 //Adding Won Status for the Day
                 luckyDays[luckyDayCount] = i+1;
                 luckyDayCount++;
+                dayStatus[i] = "Won";
                 System.out.println("Win Stack is 50% of PER DAY STACK. So, Gambler Resigning for the DAY.");
                 break;
             }
@@ -59,6 +63,7 @@ public class GamblingSimulationProblem {
                 //Adding Lost Status for the Day
                 unluckyDays[unluckyDayCount] = i+1;
                 unluckyDayCount++;
+                dayStatus[i] = "Lost";
                 System.out.println("Loose Stack is 50% of PER DAY STACK. So, Gambler is Resigning for the DAY");
                 break;
             }
@@ -73,7 +78,7 @@ public class GamblingSimulationProblem {
     private static void showWinLooseCount() {
         for(int i= 0; i < 20; i++) {
             //Displaying the Day wise Win and Loose Status
-            System.out.println("Gambler has "+ luckyDays[i] +" Games on Day "+ (i+1));
+            System.out.println("Gambler has "+ dayStatus[i] +" Games on Day "+ (i+1));
             System.out.println("Day "+ (i+1) +" Total Win Count :"+ winCountArr[i]);
             System.out.println("Day "+ (i+1) +" Total Loose Count :"+ looseCountArr[i]);
         }
@@ -98,17 +103,31 @@ public class GamblingSimulationProblem {
         //Shows the Initial Status of Gambler
         showGamblerStatus();
 
-        //Starting the Game Play for a day
-        for (int i = 0; i < 20; i++) {
-            System.out.println("Day " + (i + 1) + " Play Start.");
-            playGame(i);
-            System.out.println("Day " + (i + 1) + " Play End.");
-        }
+        //Starting the Game Play for a day and Ask for Continue to next Month if Won
+        do {
+            for (int i = 0; i < 20; i++) {
+                System.out.println("Day " + (i + 1) + " Play Start.");
+                playGame(i);
+                System.out.println("Day " + (i + 1) + " Play End.");
+            }
+            //Methode for Showing 20Days Win Loose Counter
+            showWinLooseCount();
 
-        //Methode for Showing 20Days Win Loose Counter
-        showWinLooseCount();
+            //Methode call for Checking the Luckiest and Unluckiest Days
+            luckyUnluckyDay();
+            if(luckyDayCount > unluckyDayCount) {
+                System.out.println("You have Won Maximum Days in this Month. \nSo, Do you want to continue ? (Y / N) :");
+                Scanner sc = new Scanner(System.in);
+                playChoice = sc.next();
+                luckyDayCount = 0;
+                unluckyDayCount = 0;
 
-        //Methode call for Checking the Luckiest and Unluckiest Days
-        luckyUnluckyDay();
+            } else {
+                System.out.println("You have Lost Many Times as compare to Wining Days. \nSo, Quit the Game.");
+                break;
+            }
+        } while(playChoice.equalsIgnoreCase("Y") || playChoice.equalsIgnoreCase("y"));
+
+
     }
 }
